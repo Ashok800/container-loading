@@ -1,6 +1,8 @@
 package com.container.loading.controller;
 
 import com.container.loading.dto.ContainerLoadingReqDto;
+import com.container.loading.dto.ContainerLoadingRespDto;
+import com.container.loading.dto.DeliveryManagementReqDto;
 import com.container.loading.service.ContainerLoadingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,5 +24,12 @@ public class ContainerLoadingController {
     public Response containerLoadingCalc(@RequestBody ContainerLoadingReqDto containerLoadingReqDto) {
 
         return Response.status(Response.Status.OK).entity(containerLoadingService.getConatinerLoadingCalc(containerLoadingReqDto)).build();
+    }
+
+    @GET
+    @Path(value = "/submit")
+    public Response containerResponse(@RequestBody DeliveryManagementReqDto deliveryManagementReqDto){
+        containerLoadingService.updateThePackageDetails(deliveryManagementReqDto);
+        return Response.status(Response.Status.OK).build();
     }
 }

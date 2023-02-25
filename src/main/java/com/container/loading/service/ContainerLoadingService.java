@@ -2,9 +2,11 @@ package com.container.loading.service;
 
 import com.container.loading.dto.ContainerLoadingReqDto;
 import com.container.loading.dto.ContainerLoadingRespDto;
+import com.container.loading.dto.DeliveryManagementReqDto;
 import com.container.loading.dto.GetPackageRespDto;
 import com.container.loading.models.Container;
 import com.container.loading.models.Package;
+import com.container.loading.repository.ContainerLoadingRepository;
 import com.container.loading.repository.ContainersRepository;
 import com.container.loading.repository.PackageRepository;
 import io.quarkus.runtime.Startup;
@@ -24,6 +26,7 @@ public class ContainerLoadingService {
     private final ContainersRepository containersRepository;
 
     private final PackageRepository packageRepository;
+    private final ContainerLoadingRepository containerLoadingRepository;
 
     public ContainerLoadingRespDto getConatinerLoadingCalc(ContainerLoadingReqDto containerLoadingReqDto) {
         Container container = containersRepository.getContainer(containerLoadingReqDto.getContainer_id());
@@ -65,9 +68,10 @@ public class ContainerLoadingService {
                 aPackage.setPackage_status("LOADED");
                 packageList.add(aPackage);
             }
-//            else {
-//                System.out.println("No available space for Box " + (i + 1));
-//            }
+
+            else {
+                System.out.println("No available space for Box " + (i + 1));
+            }
         }
         ContainerLoadingRespDto containerLoadingRespDto =new ContainerLoadingRespDto();
         containerLoadingRespDto.setListOfPackages(packageList);
@@ -93,6 +97,10 @@ public class ContainerLoadingService {
                 containerSpace[i][j] = aPackage.getPackage_height();
             }
         }
+    }
+    public void updateThePackageDetails(DeliveryManagementReqDto deliveryManagementReqDto){
+        containerLoadingRepository.updataThePackageDetails(deliveryManagementReqDto);
+
     }
 
 }
