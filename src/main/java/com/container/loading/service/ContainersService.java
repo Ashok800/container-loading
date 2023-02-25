@@ -7,8 +7,6 @@ import io.quarkus.runtime.Startup;
 import lombok.RequiredArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Startup

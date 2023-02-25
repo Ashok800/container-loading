@@ -25,19 +25,23 @@ public class PackageRepository {
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("coderclans");
         MongoCollection<Document> collection = database.getCollection("packages");
-        Document d1=new Document();
-        d1.append("package_id", UUID.randomUUID().toString());
-        d1.append("package_name",aPackage.getPackage_name());
-        d1.append("package_height",aPackage.getPackage_height());
-        d1.append("package_width",aPackage.getPackage_width());
-        d1.append("package_length",aPackage.getPackage_length());
-        d1.append("package_status",aPackage.getPackage_status());
-        d1.append("package_source",aPackage.getPackage_source());
-        d1.append("package_destination",aPackage.getPackage_destination());
-        d1.append("package_owner",aPackage.getPackage_owner());
-        d1.append("package_contact_number",aPackage.getPackage_contact_number());
-        d1.append("created_date", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format( LocalDateTime.now()));
-        collection.insertOne(d1);
+
+        for(int i=1;i<=2000;i++) {
+            Document d1=new Document();
+            d1.append("package_id", UUID.randomUUID().toString());
+            d1.append("package_name", "PACKAGE "+i+1);
+            d1.append("package_height", 500);
+            d1.append("package_width", 500);
+            d1.append("package_length", 1000);
+            d1.append("package_status", "PENDING_TO_LOAD");
+            d1.append("package_source", "Hyderabad");
+            d1.append("package_destination", "Vijayawada");
+            d1.append("package_owner", "Ashok");
+            d1.append("package_contact_number", ""+856974155+i);
+            d1.append("created_date", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()));
+            collection.insertOne(d1);
+        }
+
     }
 
     public void deletePackage(String package_id){
@@ -59,7 +63,7 @@ public class PackageRepository {
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("coderclans");
         MongoCollection<Document> collection = database.getCollection("packages");
-        MongoCursor<Document> cursor = collection.find().iterator();
+        MongoCursor<Document> cursor = collection.find(Filters.eq("package_status","PENDING_TO_LOAD")).limit(100).iterator();
 
         while (cursor.hasNext()) {
             aPackage = gson.fromJson(cursor.next().toJson(), Package.class);

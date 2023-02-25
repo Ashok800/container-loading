@@ -11,7 +11,7 @@ public class Main
         int containerHeight = 6;
 
         // Create a list of boxes with their dimensions
-        int[][] boxes = {{2, 3, 1}, {4, 2, 3}, {1, 5, 2}, {3, 4, 3}, {2, 2, 2},{2,3,4}};
+        int[][] boxes = {{2, 3, 1}, {4, 2, 3}, {1, 5, 2}, {3, 4, 3}, {2, 2, 2}};
 
         // Sort the boxes based on their height in descending order
         Arrays.sort(boxes, (a, b) -> Integer.compare(b[2], a[2]));

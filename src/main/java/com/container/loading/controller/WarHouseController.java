@@ -27,8 +27,10 @@ public class WarHouseController {
 
     @POST
     @Path(value = "/insert-warehouse")
+    @Produces(APPLICATION_JSON)
+    @Consumes
     public Response insertContainer(@RequestBody WareHouseModel wareHouseModel) {
-        warHouseService.insertContainer(wareHouseModel);
+        warHouseService.insertWarehouse(wareHouseModel);
         return Response.status(Response.Status.OK).build();
     }
 
