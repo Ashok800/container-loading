@@ -24,7 +24,7 @@ public class ContainersRepository {
         MongoDatabase database = mongoClient.getDatabase("coderclans");
         MongoCollection<Document> collection = database.getCollection("containers");
         var d1=new Document();
-        d1.append("container_id", UUID.randomUUID());
+        d1.append("container_id", UUID.randomUUID().toString());
         d1.append("container_name",container.getContainer_name());
         d1.append("container_height",container.getContainer_height());
         d1.append("container_width",container.getContainer_width());
