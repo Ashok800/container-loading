@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class ContainerLoadingReqDto {
 
+
     private String container_id;
 
     private String container_name;
@@ -19,5 +20,4 @@ public class ContainerLoadingReqDto {
 
     private String destination_warehouse_id;
 
-    private List<Package> packageList;
 }

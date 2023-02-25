@@ -1,4 +1,4 @@
-package com.container.loading.container;
+package com.container.loading.controller;
 
 import com.container.loading.models.UserDTO;
 import com.container.loading.service.UserService;
