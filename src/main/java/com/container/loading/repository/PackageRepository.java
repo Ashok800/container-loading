@@ -63,7 +63,7 @@ public class PackageRepository {
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("coderclans");
         MongoCollection<Document> collection = database.getCollection("packages");
-        MongoCursor<Document> cursor = collection.find(Filters.eq("package_status","PENDING_TO_LOAD")).limit(100).iterator();
+        MongoCursor<Document> cursor = collection.find(Filters.eq("package_status","PENDING_TO_LOAD")).iterator();
 
         while (cursor.hasNext()) {
             aPackage = gson.fromJson(cursor.next().toJson(), Package.class);

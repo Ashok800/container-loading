@@ -1,5 +1,7 @@
 package com.container.loading.service;
 
+import com.container.loading.dto.ContainerLoadingReqDto;
+import com.container.loading.dto.ContainerLoadingRespDto;
 import com.container.loading.dto.GetPackageRespDto;
 import com.container.loading.models.Container;
 import com.container.loading.models.Package;
@@ -23,8 +25,8 @@ public class ContainerLoadingService {
 
     private final PackageRepository packageRepository;
 
-    public void getConatinerLoadingCalc() {
-        Container container = containersRepository.getContainer("361a289d-d5ab-4d8e-a2e3-4b9d70a73bbe");
+    public ContainerLoadingRespDto getConatinerLoadingCalc(ContainerLoadingReqDto containerLoadingReqDto) {
+        Container container = containersRepository.getContainer(containerLoadingReqDto.getContainer_id());
 
         GetPackageRespDto getPackageRespDto = packageRepository.getPackages();
 
@@ -37,12 +39,10 @@ public class ContainerLoadingService {
 //        });
 
         int[][] containerSpace = new int[container.getContainer_length()][container.getContainer_width()];
-
+        List<Package> packageList=new ArrayList<>();
         for (int i = 0; i < getPackageRespDto.getPackages().size(); i++) {
 
             Package aPackage = getPackageRespDto.getPackages().get(i);
-
-            List<Package> packageList=new ArrayList<>();
 
             int row = -1;
             int col = -1;
@@ -64,10 +64,14 @@ public class ContainerLoadingService {
                 System.out.println("Box " + (i + 1) + " placed at (" + row + "," + col + ")");
                 aPackage.setPackage_status("LOADED");
                 packageList.add(aPackage);
-            } else {
-                System.out.println("No available space for Box " + (i + 1));
             }
+//            else {
+//                System.out.println("No available space for Box " + (i + 1));
+//            }
         }
+        ContainerLoadingRespDto containerLoadingRespDto =new ContainerLoadingRespDto();
+        containerLoadingRespDto.setListOfPackages(packageList);
+        return containerLoadingRespDto;
     }
 
     private static boolean isSpaceAvailable(int[][] containerSpace, int row, int col, Package aPackage) {
