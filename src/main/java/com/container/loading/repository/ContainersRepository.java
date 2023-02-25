@@ -18,30 +18,30 @@ import java.util.UUID;
 @ApplicationScoped
 public class ContainersRepository {
 
-    public void insertContainer(Container container){
+    public void insertContainer(Container container) {
         String uri = "mongodb://localhost:27017";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("coderclans");
         MongoCollection<Document> collection = database.getCollection("containers");
-        var d1=new Document();
+        var d1 = new Document();
         d1.append("container_id", UUID.randomUUID().toString());
-        d1.append("container_name",container.getContainer_name());
-        d1.append("container_height",container.getContainer_height());
-        d1.append("container_width",container.getContainer_width());
-        d1.append("container_length",container.getContainer_length());
-        d1.append("container_status",container.getContainer_status());
-        d1.append("created_date", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format( LocalDateTime.now()));
+        d1.append("container_name", container.getContainer_name());
+        d1.append("container_height", container.getContainer_height());
+        d1.append("container_width", container.getContainer_width());
+        d1.append("container_length", container.getContainer_length());
+        d1.append("container_status", container.getContainer_status());
+        d1.append("created_date", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()));
         collection.insertOne(d1);
     }
 
-    public void deleteContainer(String container_id){
+    public void deleteContainer(String container_id) {
         String uri = "mongodb://localhost:27017";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("coderclans");
         MongoCollection<Document> collection = database.getCollection("containers");
-        DeleteResult result= collection.deleteOne(Filters.eq("container_id", container_id));
+        DeleteResult result = collection.deleteOne(Filters.eq("container_id", container_id));
         if (result.getDeletedCount() != 1) {
-            System.out.println("Error occurred while deleting)."+ result.getDeletedCount());
+            System.out.println("Error occurred while deleting)." + result.getDeletedCount());
         }
     }
 
@@ -63,5 +63,17 @@ public class ContainersRepository {
 
         getContainersRespDto.setContainers(containers);
         return getContainersRespDto;
+    }
+
+    public Container getContainer(String container_id) {
+        Gson gson = new Gson();
+        String uri = "mongodb://localhost:27017";
+        Container container;
+        MongoClient mongoClient = MongoClients.create(uri);
+        MongoDatabase database = mongoClient.getDatabase("coderclans");
+        MongoCollection<Document> collection = database.getCollection("containers");
+        MongoCursor<Document> cursor = collection.find(Filters.eq("container_id", container_id)).iterator();
+        container = gson.fromJson(cursor.next().toJson(), Container.class);
+        return container;
     }
 }

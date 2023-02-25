@@ -27,7 +27,7 @@ public class PackageController {
     @Path(value = "/delete-package/{package_id}")
     @Produces(APPLICATION_JSON)
     @Consumes
-    public Response deletePackage(@PathVariable String package_id) {
+    public Response deletePackage(@PathParam("package_id") String package_id) {
         packageService.deletePackage(package_id);
         return Response.status(Response.Status.OK).build();
     }
