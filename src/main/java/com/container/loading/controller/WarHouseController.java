@@ -25,6 +25,13 @@ public class WarHouseController {
         return Response.status(Response.Status.OK).type(APPLICATION_JSON).entity( wareHouseService.getAllWareHouses()).build();
     }
 
+    @GET
+    @Path(value="/getwareHouseById/{id}")
+    @Produces(APPLICATION_JSON)
+    public  Response getAWareHouse(String id){
+        return  Response.status(Response.Status.OK).type(APPLICATION_JSON).entity(wareHouseService.getAWareHouseDetails(id)).build();
+    }
+
     @POST
     @Path(value = "/insert-warehouse")
     @Consumes(APPLICATION_JSON)

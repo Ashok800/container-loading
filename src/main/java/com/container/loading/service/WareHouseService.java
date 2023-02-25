@@ -22,4 +22,9 @@ public class WareHouseService {
     public void insertWareHouse(WareHouseModel wareHouseModel) {
         wareHouseRepository.insertNewWareHouse(wareHouseModel);
     }
+
+    public Object getAWareHouseDetails(String id) {
+
+       return wareHouseRepository.getSingleWareHouseData(id);
+    }
 }

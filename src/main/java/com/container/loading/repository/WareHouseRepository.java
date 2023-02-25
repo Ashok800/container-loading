@@ -6,12 +6,17 @@ import com.container.loading.models.Container;
 import com.container.loading.models.WareHouseModel;
 import com.google.gson.Gson;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
 import lombok.var;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import static com.mongodb.client.model.Filters.eq;
 
 @ApplicationScoped
 public class WareHouseRepository {
@@ -53,4 +58,14 @@ public class WareHouseRepository {
         collection.insertOne(document);
     }
 
+    public Object getSingleWareHouseData(String id) {
+        String uri="mongodb://localhost:27017";
+
+        MongoClient mongoClient = MongoClients.create(uri);
+        MongoDatabase database = mongoClient.getDatabase("coderclans");
+        MongoCollection<Document> collection = database.getCollection("wareHouse");
+       MongoCursor<Document> wareHouseData=collection.find(eq("wareHouse_id",id)).iterator();
+
+        return wareHouseData;
+    }
 }
