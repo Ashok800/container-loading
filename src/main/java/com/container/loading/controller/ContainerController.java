@@ -4,8 +4,10 @@ import com.container.loading.models.Container;
 import com.container.loading.service.ContainersService;
 import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
@@ -13,6 +15,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/coderclans/container")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*",allowedHeaders = "*")
+@ApplicationScoped
 public class ContainerController {
     private final ContainersService containersService;
 
