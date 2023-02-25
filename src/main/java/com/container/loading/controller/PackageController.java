@@ -1,4 +1,4 @@
-package com.container.loading.container;
+package com.container.loading.controller;
 
 import com.container.loading.models.Package;
 import com.container.loading.service.PackageService;

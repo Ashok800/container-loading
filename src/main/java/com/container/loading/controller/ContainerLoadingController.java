@@ -1,4 +1,4 @@
-package com.container.loading.container;
+package com.container.loading.controller;
 
 import lombok.RequiredArgsConstructor;
 

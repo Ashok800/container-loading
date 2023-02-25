@@ -1,4 +1,4 @@
-package com.container.loading.container;
+package com.container.loading.controller;
 
 import com.container.loading.models.Container;
 import com.container.loading.service.ContainersService;
@@ -23,7 +23,7 @@ public class ContainerController {
         return Response.status(Response.Status.OK).build();
     }
 
-    @GET
+    @DELETE
     @Path(value = "/delete-container/{container_id}")
     @Produces(APPLICATION_JSON)
     @Consumes
