@@ -15,21 +15,21 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Path("/coderclans/wareHouse")
 @RequiredArgsConstructor
 public class WarHouseController {
-    private WareHouseService warHouseService;
+    private final WareHouseService wareHouseService;
 
     @GET
-    @Path(value = "getWareHouse/{id}")
+    @Path(value = "/getWareHouses")
     @Produces(APPLICATION_JSON)
     @Consumes
-    public Response getWarHouseDetails(@PathVariable String WareHouse_id){
-        return Response.status(Response.Status.OK).type(APPLICATION_JSON).entity( warHouseService.getWareHouseById(WareHouse_id)).build();
+    public Response getWarHouseDetails(){
+        return Response.status(Response.Status.OK).type(APPLICATION_JSON).entity( wareHouseService.getAllWareHouses()).build();
     }
 
     @POST
     @Path(value = "/insert-warehouse")
+    @Consumes(APPLICATION_JSON)
     public Response insertContainer(@RequestBody WareHouseModel wareHouseModel) {
-        warHouseService.insertContainer(wareHouseModel);
+        wareHouseService.insertWareHouse(wareHouseModel);
         return Response.status(Response.Status.OK).build();
     }
-
 }
