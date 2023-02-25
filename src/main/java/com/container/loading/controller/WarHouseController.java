@@ -15,7 +15,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Path("/coderclans/wareHouse")
 @RequiredArgsConstructor
 public class WarHouseController {
-    private WareHouseService warHouseService;
+    private final WareHouseService warHouseService;
 
     @GET
     @Path(value = "getWareHouse/{id}")
@@ -31,5 +31,13 @@ public class WarHouseController {
         warHouseService.insertContainer(wareHouseModel);
         return Response.status(Response.Status.OK).build();
     }
+
+    @GET
+    @Path(value="getWareHouses")
+    @Produces(APPLICATION_JSON)
+    public  Response getAllWareHouses(){
+        return  Response.status(Response.Status.OK).type(APPLICATION_JSON).entity(warHouseService.getAllWareHouesDetails()).build();
+    }
+
 
 }
