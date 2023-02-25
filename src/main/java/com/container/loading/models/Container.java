@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 
 @Data
 @Setter
@@ -16,6 +18,6 @@ public class Container {
   private int container_width;
   private int container_height;
   private String container_status;
-
+  private Date created_date;
 
 }

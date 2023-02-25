@@ -6,11 +6,14 @@ import com.google.gson.Gson;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import lombok.var;
 import org.bson.Document;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class ContainersRepository {
@@ -20,7 +23,14 @@ public class ContainersRepository {
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("coderclans");
         MongoCollection<Document> collection = database.getCollection("containers");
-        var d1=new Document("_id",container);
+        var d1=new Document();
+        d1.append("container_id", UUID.randomUUID());
+        d1.append("container_name",container.getContainer_name());
+        d1.append("container_height",container.getContainer_height());
+        d1.append("container_width",container.getContainer_width());
+        d1.append("container_length",container.getContainer_length());
+        d1.append("container_status",container.getContainer_status());
+        d1.append("created_date", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format( LocalDateTime.now()));
         collection.insertOne(d1);
     }
 
@@ -38,7 +48,7 @@ public class ContainersRepository {
     public GetContainersRespDto getContainers() {
         Gson gson = new Gson();
         GetContainersRespDto getContainersRespDto = new GetContainersRespDto();
-        List<Container> containers = new ArrayList<>();
+        ArrayList<Container> containers = new ArrayList<>();
         String uri = "mongodb://localhost:27017";
         Container container;
         MongoClient mongoClient = MongoClients.create(uri);
