@@ -23,7 +23,7 @@ public class DeliveryManagement {
 
     private String truck_status;
 
-    private Date created_date;
+    private String created_date;
 
-    private Date updated_date;
+    private String updated_date;
 }

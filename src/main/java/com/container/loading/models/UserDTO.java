@@ -9,5 +9,6 @@ public class UserDTO {
     private String user_id;
     private String username;
     private String password;
-//    private Date created_date;
+
+private String created_date;
 }

@@ -18,6 +18,6 @@ public class Package {
         private String package_owner;
         private String package_contact_number;
 
-
+        private String created_date;
 }
 

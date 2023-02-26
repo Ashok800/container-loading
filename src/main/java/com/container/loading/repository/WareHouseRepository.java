@@ -44,6 +44,7 @@ public class WareHouseRepository {
         document.append("warHouse_name",wareHouseModel.getWarHouse_name());
         document.append("wareHouse_Email_id",wareHouseModel.getWareHouse_Email_id());
         document.append("contact_no",wareHouseModel.getContact_no());
+        document.append("created_date",DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format( LocalDateTime.now()));
         collection.insertOne(document);
     }
 

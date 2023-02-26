@@ -18,5 +18,6 @@ public class Container {
   private int container_height;
   private String container_status;
 
+  private String created_date;
 
 }
