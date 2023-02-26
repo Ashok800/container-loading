@@ -26,7 +26,7 @@ public class PackageRepository {
         MongoDatabase database = mongoClient.getDatabase("coderclans");
         MongoCollection<Document> collection = database.getCollection("packages");
 
-        for(int i=1;i<=2000;i++) {
+        for(int i=1;i<=300;i++) {
             Document d1=new Document();
             d1.append("package_id", UUID.randomUUID().toString());
             d1.append("package_name", "PACKAGE "+i+1);
