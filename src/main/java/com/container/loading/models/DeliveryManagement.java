@@ -19,7 +19,8 @@ public class DeliveryManagement {
 
     private String destination_warehouse_id;
 
-    private Package aPackage;
+    private String package_name;
+    private String package_id;
 
     private String truck_status;
 

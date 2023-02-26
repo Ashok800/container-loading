@@ -1,10 +1,8 @@
 package com.container.loading.service;
 
-import com.container.loading.dto.ContainerLoadingReqDto;
-import com.container.loading.dto.ContainerLoadingRespDto;
-import com.container.loading.dto.DeliveryManagementReqDto;
-import com.container.loading.dto.GetPackageRespDto;
+import com.container.loading.dto.*;
 import com.container.loading.models.Container;
+import com.container.loading.models.DeliveryManagement;
 import com.container.loading.models.Package;
 import com.container.loading.repository.ContainerLoadingRepository;
 import com.container.loading.repository.ContainersRepository;
@@ -101,6 +99,9 @@ public class ContainerLoadingService {
     public void updateThePackageDetails(DeliveryManagementReqDto deliveryManagementReqDto){
         containerLoadingRepository.updataThePackageDetails(deliveryManagementReqDto);
 
+    }
+    public ResponceDeliveryManagement getAllDeliveryMangement(){
+       return  containerLoadingRepository.getAllDeliveryMangement();
     }
 
 }

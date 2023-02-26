@@ -2,16 +2,11 @@ package com.container.loading.controller;
 
 import com.container.loading.dto.ContainerLoadingReqDto;
 import com.container.loading.dto.DeliveryManagementReqDto;
-import com.container.loading.models.Package;
 import com.container.loading.service.ContainerLoadingService;
-import com.container.loading.service.PackageService;
 import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/coderclans/container-loading")
@@ -36,4 +31,11 @@ public class ContainerLoadingController {
         containerLoadingService.updateThePackageDetails(deliveryManagementReqDto);
         return Response.status(Response.Status.OK).build();
     }
+    @GET
+    @Path(value ="/delivery-management")
+    @Produces(APPLICATION_JSON)
+    public Response deliveryManagement(){
+        return Response.status(Response.Status.OK).type(APPLICATION_JSON).entity(containerLoadingService.getAllDeliveryMangement()).build();
+    }
+
 }

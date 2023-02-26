@@ -2,18 +2,21 @@ package com.container.loading.repository;
 
 import com.container.loading.dto.ContainerLoadingRespDto;
 import com.container.loading.dto.DeliveryManagementReqDto;
+import com.container.loading.dto.ResponceDeliveryManagement;
+import com.container.loading.models.Container;
+import com.container.loading.models.DeliveryManagement;
 import com.container.loading.models.Package;
+import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import lombok.var;
 import org.bson.Document;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplicationScoped
 public class ContainerLoadingRepository {
@@ -45,5 +48,23 @@ public class ContainerLoadingRepository {
             d.append("updated_date",DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()));
             deliveryManagement.insertOne(d);
         }
+    }
+    public ResponceDeliveryManagement getAllDeliveryMangement(){
+        Gson gson = new Gson();
+        ResponceDeliveryManagement responceDeliveryManagement =new ResponceDeliveryManagement();
+        List<DeliveryManagement> listOfDeliveryManagement =new ArrayList<>();
+        DeliveryManagement deliveryManagementDetails ;
+        String uri = "mongodb://localhost:27017";
+        MongoClient mongoClient = MongoClients.create(uri);
+        MongoDatabase database = mongoClient.getDatabase("coderclans");
+        MongoCollection<Document> deliveryManagement = database.getCollection("delivery_Management");
+        MongoCursor<Document> cursor = deliveryManagement.find().iterator();
+        while (cursor.hasNext()) {
+            deliveryManagementDetails = gson.fromJson(cursor.next().toJson(), DeliveryManagement.class);
+            listOfDeliveryManagement.add(deliveryManagementDetails);
+        }
+        responceDeliveryManagement.setDeliveryManagementList(listOfDeliveryManagement);
+        return responceDeliveryManagement;
+
     }
 }
